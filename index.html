@@ -399,6 +399,37 @@
       transition: background 0.2s;
     }
     .tag:hover { background: rgba(99,102,241,0.22); }
+    .skills-subtitle {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin: 0 0 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: var(--text-primary);
+    }
+    .skills-subtitle::before {
+      content: '';
+      width: 4px; height: 1.2rem;
+      background: var(--gradient);
+      border-radius: 2px;
+    }
+    .skills-subtitle.soft::before {
+      background: var(--secondary);
+    }
+    .skill-card.soft-card {
+      border-color: rgba(16,185,129,0.25);
+    }
+    .skill-card.soft-card:hover {
+      border-color: var(--secondary);
+      box-shadow: 0 12px 32px rgba(16,185,129,0.15);
+    }
+    .tag.soft-tag {
+      background: rgba(16,185,129,0.1);
+      border: 1px solid rgba(16,185,129,0.3);
+      color: #6ee7b7;
+    }
+    .tag.soft-tag:hover { background: rgba(16,185,129,0.22); }
 
     /* ── PROJECTS ── */
     #projects { background: rgba(22,22,42,0.6); }
@@ -662,9 +693,11 @@
 <nav id="navbar">
   <a class="nav-logo" href="#home">CA.</a>
   <ul class="nav-links" id="navLinks">
+    <li><a href="#home">Home</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#projects">Projects</a></li>
+    <li><a href="#" id="navResume" onclick="openResume(); return false;">Resume</a></li>
     <li><a href="#contact" class="nav-cta">Contact</a></li>
   </ul>
   <div class="hamburger" id="hamburger" onclick="toggleNav()">
@@ -802,12 +835,14 @@
   <div class="container">
     <div class="section-header reveal">
       <p class="section-tag">// 02. skills</p>
-      <h2 class="section-title">Tech Stack</h2>
+      <h2 class="section-title">Skills &amp; Expertise</h2>
       <div class="section-line"></div>
       <p style="color:var(--text-secondary);margin-top:1rem;max-width:500px;margin-left:auto;margin-right:auto;font-size:0.95rem;">
-        Technologies I use to build performant, scalable web applications
+        Technologies I use to build performant, scalable web applications — and the strengths I bring to every team
       </p>
     </div>
+
+    <h3 class="skills-subtitle">Technical Skills</h3>
     <div class="skills-grid reveal">
       <div class="skill-card">
         <div class="skill-icon">🎨</div>
@@ -860,14 +895,35 @@
           <span class="tag">Axios</span>
         </div>
       </div>
-      <div class="skill-card">
+    </div>
+
+    <h3 class="skills-subtitle soft" style="margin-top:2.5rem;">Soft Skills</h3>
+    <div class="skills-grid reveal">
+      <div class="skill-card soft-card">
         <div class="skill-icon">🤝</div>
-        <div class="skill-title">Soft Skills</div>
+        <div class="skill-title">Collaboration &amp; Communication</div>
         <div class="tags">
-          <span class="tag">Collaboration</span>
-          <span class="tag">Problem Solving</span>
-          <span class="tag">Attention to Detail</span>
-          <span class="tag">Time Management</span>
+          <span class="tag soft-tag">Team Collaboration</span>
+          <span class="tag soft-tag">Clear Communication</span>
+          <span class="tag soft-tag">Cross-functional Work</span>
+        </div>
+      </div>
+      <div class="skill-card soft-card">
+        <div class="skill-icon">🧠</div>
+        <div class="skill-title">Mindset &amp; Approach</div>
+        <div class="tags">
+          <span class="tag soft-tag">Problem Solving</span>
+          <span class="tag soft-tag">Attention to Detail</span>
+          <span class="tag soft-tag">Adaptability</span>
+        </div>
+      </div>
+      <div class="skill-card soft-card">
+        <div class="skill-icon">⏱️</div>
+        <div class="skill-title">Work Ethic</div>
+        <div class="tags">
+          <span class="tag soft-tag">Time Management</span>
+          <span class="tag soft-tag">Ownership</span>
+          <span class="tag soft-tag">Continuous Learning</span>
         </div>
       </div>
     </div>
@@ -1051,6 +1107,21 @@
 <script>
   function toggleNav() {
     document.getElementById('navLinks').classList.toggle('open');
+  }
+
+  function openResume() {
+    const driveId = '1p2_O6nYURgw6-GDRnNcNnLQabJOMj6lt';
+    // Open the resume for viewing in a new tab first, while still inside the
+    // user-click gesture, so the browser doesn't block it as a popup
+    window.open(`https://drive.google.com/file/d/${driveId}/view?usp=sharing`, '_blank', 'noopener');
+    // Trigger an automatic download of the resume (same tab, no navigation
+    // since Google's response forces a download via Content-Disposition)
+    const link = document.createElement('a');
+    link.href = `https://drive.google.com/uc?export=download&id=${driveId}`;
+    link.setAttribute('download', 'Chirag_Agarwal_Resume.pdf');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 
   document.querySelectorAll('.nav-links a').forEach(a => {
